@@ -12,23 +12,30 @@ export default function App() {
     './assets/dieRed5.png',
     './assets/dieRed6.png',
   ])
-  const [dadosIndex, setDadosIndex] = useState(0);
-  const [numeroApostado, setNumeroApostado] = useState(0);
-  const [saldo, setSaldo] = useState(100.00)
+  const [dadoApostaIndex, setDadoApostaIndex] = useState(0);
+  const [dadoSorteadoIndex, setDadoSorteadoIndex] = useState(0);
+  const [imgDadoAposta, setImgDadoAposta] = useState(dadosImage[0]);
+  const [imgDadoSorteado, setImgDadoSorteado] = useState(dadosImage[0]);
+
+  const [dadoApostado, setDadoApostado] = useState(0);
+  const [dadoSorteado, setDadoSorteado] = useState(Math.floor(Math.random() * 6));
+
+  const [saldo, setSaldo] = useState(100.00);
   const [valorApostado, setValorApostado] = useState(
     [
       5.00, 10.00, 15.00, 20.00
-    ])
+    ]);
 
-  const escolherNumero = (numeroBotao) => {
-    setNumeroApostado(numeroBotao);
+  const escolherDado = (numeroBotao) => {
+    setDadoApostado(numeroBotao);
+    setDadoApostaIndex(numeroBotao);
+    setImgDadoAposta(dadosImage[numeroBotao])
   }
 
-  let jogadaAleatoria = 0;
-
   const apostar = () => {
-    jogadaAleatoria = Math.floor(Math.random() * 6);
-    if (numeroApostado == jogadaAleatoria) {
+    setNumeroSorteado(Math.floor(Math.random() * 6));
+    setDadoSorteadoIndex(numeroSorteado);
+    if (dadoApostado == dadoSorteado) {
       
     }
   }
@@ -45,13 +52,13 @@ export default function App() {
         <View>
           <Image
             style={styles.imagem}
-            // source={require(dadosImage[dadosIndex])}
+            source={require(imgDadoAposta)}
           />
         </View>
         <View>
         <Image
           style={styles.imagem}
-          // source={require(dadosImage[dadosIndex])}
+          // source={require(dadosImage[dadosPCIndex])}
         />
         </View>
       </View>
@@ -62,24 +69,24 @@ export default function App() {
       
       <View style={styles.areaBotoes}>
         <View style={styles.botoesPrimeiraLinha}>
-          <Pressable style={styles.botao} onPress={() => escolherNumero(1)}>
+          <Pressable style={styles.botao} onPress={() => escolherDado(1)}>
             <Text style={styles.text}>1</Text>
           </Pressable>
-          <Pressable style={styles.botao} onPress={() => escolherNumero(2)}>
+          <Pressable style={styles.botao} onPress={() => escolherDado(2)}>
             <Text style={styles.text}>2</Text>
           </Pressable>
-          <Pressable style={styles.botao} onPress={() => escolherNumero(3)}>
+          <Pressable style={styles.botao} onPress={() => escolherDado(3)}>
             <Text style={styles.text}>3</Text>
           </Pressable>
         </View>
         <View style={styles.botoesPrimeiraLinha}>
-          <Pressable style={styles.botao} onPress={() => escolherNumero(4)}>
+          <Pressable style={styles.botao} onPress={() => escolherDado(4)}>
             <Text style={styles.text}>4</Text>
           </Pressable>
-          <Pressable style={styles.botao} onPress={() => escolherNumero(5)}>
+          <Pressable style={styles.botao} onPress={() => escolherDado(5)}>
             <Text style={styles.text}>5</Text>
           </Pressable>
-          <Pressable style={styles.botao} onPress={() => escolherNumero(6)}>
+          <Pressable style={styles.botao} onPress={() => escolherDado(6)}>
             <Text style={styles.text}>6</Text>
           </Pressable>
         </View>
