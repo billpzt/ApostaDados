@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Image, StyleSheet, Text, View, Pressable } from 'react-native';
 
 export default function App() {
-  const [dadosImage, setDadosImage] = useState([
+  const dadosImage = [
     './assets/four-leaf-clover-illustration-png.webp',
     './assets/dieRed1.png',
     './assets/dieRed2.png',
@@ -11,11 +11,11 @@ export default function App() {
     './assets/dieRed4.png',
     './assets/dieRed5.png',
     './assets/dieRed6.png',
-  ])
+  ]
   const [dadoApostaIndex, setDadoApostaIndex] = useState(0);
   const [dadoSorteadoIndex, setDadoSorteadoIndex] = useState(0);
   const [imgDadoAposta, setImgDadoAposta] = useState(dadosImage[0]);
-  const [imgDadoSorteado, setImgDadoSorteado] = useState(dadosImage[0]);
+  const [imgDadoSorteado, setImgDadoSorteado] = useState(dadosImage[0].toString());
 
   const [dadoApostado, setDadoApostado] = useState(0);
   const [dadoSorteado, setDadoSorteado] = useState(Math.floor(Math.random() * 6));
@@ -25,6 +25,10 @@ export default function App() {
     [
       5.00, 10.00, 15.00, 20.00
     ]);
+
+  // const caminhoImagem = require(imgDadoAposta);
+  // const caminhoImagem = require('./assets/four-leaf-clover-illustration-png.webp');
+  ;
 
   const escolherDado = (numeroBotao) => {
     setDadoApostado(numeroBotao);
@@ -58,7 +62,7 @@ export default function App() {
         <View>
         <Image
           style={styles.imagem}
-          // source={require(dadosImage[dadosPCIndex])}
+          source={require('./assets/four-leaf-clover-illustration-png.webp')}
         />
         </View>
       </View>
