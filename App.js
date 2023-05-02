@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Button, Image, StyleSheet, Text, View, Pressable } from 'react-native';
+import { Image, StyleSheet, Text, View, Pressable } from 'react-native';
 
 export default function App() {
   const [dadosImage, setDadosImage] = useState([
@@ -14,7 +14,11 @@ export default function App() {
   ])
   const [dadosIndex, setDadosIndex] = useState(0);
   const [numeroApostado, setNumeroApostado] = useState(0);
-  const [saldo, setSaldo] = useState('100.00')
+  const [saldo, setSaldo] = useState(100.00)
+  const [valorApostado, setValorApostado] = useState(
+    [
+      5.00, 10.00, 15.00, 20.00
+    ])
 
   const escolherNumero = (numeroBotao) => {
     setNumeroApostado(numeroBotao);
@@ -34,11 +38,24 @@ export default function App() {
       <View style={styles.grana}>
         <Text style={styles.granaSaldo}>Saldo: R${saldo}</Text>
       </View>
+
       <Text style={styles.textoTopo}>Faça sua aposta e boa sorte!</Text>
-      <Image
-        style={styles.imagem}
-        // source={require(dadosImage[dadosIndex])}
-      />
+
+      <View style={styles.imagensDados}>
+        <View>
+          <Image
+            style={styles.imagem}
+            // source={require(dadosImage[dadosIndex])}
+          />
+        </View>
+        <View>
+        <Image
+          style={styles.imagem}
+          // source={require(dadosImage[dadosIndex])}
+        />
+        </View>
+      </View>
+      
       <View style={styles.aposta}>
         <Text>Aqui será escolhido o valor da aposta</Text>
       </View>
@@ -89,6 +106,19 @@ const styles = StyleSheet.create({
   textoTopo: {
     marginBottom: 10
   },
+  imagensDados: {
+    flexDirection: 'row'
+  },
+  imagem: {
+    width: 150,
+    height: 150,
+    borderColor: 'black',
+    borderWidth: 2,
+    borderRadius: 2,
+    marginLeft: 2,
+    marginRight: 2
+
+  },
   aposta: {
     marginTop: 10,
     marginBottom: 10,
@@ -130,13 +160,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     letterSpacing: 0.25,
     color: 'white',
-  },
-  imagem: {
-    width: 200,
-    height: 200,
-    borderColor: 'black',
-    borderWidth: 2,
-    borderRadius: 2,
   },
   container: {
     flex: 1,
