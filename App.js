@@ -19,10 +19,13 @@ export default function App() {
     setNumeroApostado(numeroBotao);
   }
 
-  let jogadaAleatoria = Math.floor(Math.random() * 6);
+  let jogadaAleatoria = 0;
 
   const apostar = () => {
-    
+    jogadaAleatoria = Math.floor(Math.random() * 6);
+    if (numeroApostado == jogadaAleatoria) {
+      
+    }
   }
 
   return (
@@ -73,6 +76,7 @@ export default function App() {
         <Button 
           style={styles.botaoApostar}
           title="Apostar"
+          onPress={() => apostar}
           />
       </View>
     </View>
