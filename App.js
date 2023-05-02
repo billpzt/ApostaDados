@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Button, Image, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, StyleSheet, Text, View, Pressable } from 'react-native';
 
 export default function App() {
   const [dadosImage, setDadosImage] = useState([
@@ -14,6 +14,7 @@ export default function App() {
   ])
   const [dadosIndex, setDadosIndex] = useState(0);
   const [numeroApostado, setNumeroApostado] = useState(0);
+  const [saldo, setSaldo] = useState('100.00')
 
   const escolherNumero = (numeroBotao) => {
     setNumeroApostado(numeroBotao);
@@ -30,60 +31,70 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Faça sua aposta e boa sorte!</Text>
+      <View style={styles.grana}>
+        <Text style={styles.granaSaldo}>Saldo: R${saldo}</Text>
+      </View>
+      <Text style={styles.textoTopo}>Faça sua aposta e boa sorte!</Text>
       <Image
         style={styles.imagem}
         // source={require(dadosImage[dadosIndex])}
       />
       <View style={styles.aposta}>
-
+        <Text>Aqui será escolhido o valor da aposta</Text>
       </View>
-      <View style={styles.botoes}>
+      
+      <View style={styles.areaBotoes}>
         <View style={styles.botoesPrimeiraLinha}>
-          <Button 
-            style={styles.botoesTexto}
-            title="1"
-            onPress={() => escolherNumero(1)}
-          />
-          <Button 
-            style={styles.botoesTexto}
-            title="2"
-            onPress={() => escolherNumero(2)}
-          />
-          <Button 
-            style={styles.botoesTexto}
-            title="3"
-            onPress={() => escolherNumero(3)}
-          />
+          <Pressable style={styles.botao} onPress={() => escolherNumero(1)}>
+            <Text style={styles.text}>1</Text>
+          </Pressable>
+          <Pressable style={styles.botao} onPress={() => escolherNumero(2)}>
+            <Text style={styles.text}>2</Text>
+          </Pressable>
+          <Pressable style={styles.botao} onPress={() => escolherNumero(3)}>
+            <Text style={styles.text}>3</Text>
+          </Pressable>
         </View>
-        <View style={styles.botoesSegundaLinha}>
-          <Button 
-            style={styles.botoesTexto}
-            title="4" 
-            onPress={() => escolherNumero(4)}
-          />
-          <Button 
-            style={styles.botoesTexto}
-            title="5"
-            onPress={() => escolherNumero(5)}
-          />
-          <Button 
-            style={styles.botoesTexto}
-            title="6"
-            onPress={() => escolherNumero(6)}
-          />
+        <View style={styles.botoesPrimeiraLinha}>
+          <Pressable style={styles.botao} onPress={() => escolherNumero(4)}>
+            <Text style={styles.text}>4</Text>
+          </Pressable>
+          <Pressable style={styles.botao} onPress={() => escolherNumero(5)}>
+            <Text style={styles.text}>5</Text>
+          </Pressable>
+          <Pressable style={styles.botao} onPress={() => escolherNumero(6)}>
+            <Text style={styles.text}>6</Text>
+          </Pressable>
         </View>
-        <Button 
-          style={styles.botaoApostar}
-          title="Apostar"
-          onPress={() => apostar}
-          />
       </View>
+      <Pressable style={styles.botao} onPress={() => apostar}>
+        <Text style={styles.text}>Apostar</Text>
+      </Pressable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  grana: {
+    backgroundColor: 'green',
+    marginBottom: 10
+  },
+  granaSaldo: {
+    fontSize: 25,
+    lineHeight: 30,
+    fontWeight: 'bold',
+    color: 'white',
+    padding: 10
+  },
+  textoTopo: {
+    marginBottom: 10
+  },
+  aposta: {
+    marginTop: 10,
+    marginBottom: 10,
+    borderColor: 'black',
+    borderRadius: 1
+  },
   botaoApostar: { 
     backgroundColor: 'blue'
   },
@@ -91,25 +102,41 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent:'space-around',
     alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 10
   },
   botoesSegundaLinha: {
     flexDirection: 'row',
     justifyContent:'space-around',
     alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 10
   },
-  botoes: {
+  areaBotoes: {
     width: 200
   },
-  botoesTexto: {
-    fontSize: 20,
+  botao: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 20,
+    paddingHorizontal: 25,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: 'black',
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
     fontWeight: 'bold',
+    letterSpacing: 0.25,
+    color: 'white',
   },
   imagem: {
     width: 200,
     height: 200,
     borderColor: 'black',
     borderWidth: 2,
-    borderRadius: 10,
+    borderRadius: 2,
   },
   container: {
     flex: 1,
