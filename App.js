@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { Image, StyleSheet, Text, View, Pressable } from 'react-native';
 
 export default function App() {
+
+  const [textoSuperior, setTextoSuperior] = useState('Faça sua aposta e boa sorte!')
   
-  // Paths das imagens
+  // Paths das imagens, só renderiza no React Native se colocar cada uma com require 
   const dadosImage = [
     require('./assets/four-leaf-clover-illustration-png.webp'),
     require('./assets/dieRed1.png'),
@@ -20,11 +22,17 @@ export default function App() {
   
   // Número do dado, o que foi apostado e o que foi sorteado
   const [dadoApostado, setDadoApostado] = useState(0);
-  const [dadoSorteado, setDadoSorteado] = useState(0);
+  const [dadoSorteado, setDadoSorteado] = useState(Math.floor(Math.random() * 6)+1);
   
   // Dinheiro do saldo e valores que podem ser apostados pelo usuário
   const [saldo, setSaldo] = useState(100.00);
-  const [valorApostado, setValorApostado] = useState([5.00, 10.00, 15.00, 20.00]);
+  const valoresApostas = [5.00, 10.00, 15.00, 20.00];
+  const [valorApostado, setValorApostado] = useState(0.00);
+
+  // Função que estabelece o valor apostado dependendo do botão tocado
+  const escolherValorAposta = (valor) => {
+    setValorApostado(valor);
+  }
 
   // Função chamada quando o botão numérico é tocado
   const escolherDado = (numeroBotao) => {
@@ -34,12 +42,13 @@ export default function App() {
 
   const apostar = () => {
     setDadoSorteado(Math.floor(Math.random() * 6)+1);
-    console.log(dadoSorteado);
     setImgDadoSorteado(dadosImage[dadoSorteado]);
     if (dadoApostado == dadoSorteado) {
-      console.log('Você acertou!');
+      setSaldo(saldo + valorApostado);
+      setTextoSuperior('Ganhou!');
     } else {
-      console.log('Você errou!');
+      setSaldo(saldo - valorApostado);
+      setTextoSuperior('Perdeu!');
     }
   }
 
@@ -49,36 +58,33 @@ export default function App() {
         <Text style={styles.granaSaldo}>Saldo: R${saldo}</Text>
       </View>
 
-      <Text style={styles.textoTopo}>Faça sua aposta e boa sorte!</Text>
+      <Text style={styles.textoTopo}>{textoSuperior}</Text>
 
       <View style={styles.imagensDados}>
-        <View>
           <Image
             style={styles.imagem}
             source={imgDadoAposta}
           />
-        </View>
-        <View>
         <Image
           style={styles.imagem}
           source={imgDadoSorteado}
         />
-        </View>
       </View>
       
       <View style={styles.aposta}>
-        <Pressable style={styles.botaoValores} onPress={() => escolherDado(6)}>
-          <Text style={styles.text}>R${valorApostado[0]}</Text>
+        <Pressable style={styles.botaoValores} onPress={() => escolherValorAposta(valoresApostas[0])}>
+          <Text style={styles.text}>R${valoresApostas[0]}</Text>
         </Pressable>
-        <Pressable style={styles.botaoValores} onPress={() => escolherDado(6)}>
-          <Text style={styles.text}>R${valorApostado[1]}</Text>
+        <Pressable style={styles.botaoValores} onPress={() => escolherValorAposta(valoresApostas[1])}>
+          <Text style={styles.text}>R${valoresApostas[1]}</Text>
         </Pressable>
-        <Pressable style={styles.botaoValores} onPress={() => escolherDado(6)}>
-          <Text style={styles.text}>R${valorApostado[2]}</Text>
+        <Pressable style={styles.botaoValores} onPress={() => escolherValorAposta(valoresApostas[2])}>
+          <Text style={styles.text}>R${valoresApostas[2]}</Text>
         </Pressable>
-        <Pressable style={styles.botaoValores} onPress={() => escolherDado(6)}>
-          <Text style={styles.text}>R${valorApostado[3]}</Text>
+        <Pressable style={styles.botaoValores} onPress={() => escolherValorAposta(valoresApostas[3])}>
+          <Text style={styles.text}>R${valoresApostas[3]}</Text>
         </Pressable>
+        
       </View>
       
       <View style={styles.areaBotoes}>
@@ -117,6 +123,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     marginBottom: 10
   },
+  granaEscolhida: {
+    backgroundColor: 'darkgreen',
+    marginBottom: 10
+  },
   granaSaldo: {
     fontSize: 25,
     lineHeight: 30,
@@ -128,7 +138,9 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   imagensDados: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    width: 'auto',
+    justifyContent: 'space-between'
   },
   imagem: {
     width: 150,
