@@ -33,7 +33,7 @@ export default function App() {
   }
 
   const apostar = () => {
-    setDadoSorteado(Math.floor(Math.random() * 6));
+    setDadoSorteado(Math.floor(Math.random() * 6)+1);
     console.log(dadoSorteado);
     setImgDadoSorteado(dadosImage[dadoSorteado]);
     if (dadoApostado == dadoSorteado) {
@@ -67,7 +67,18 @@ export default function App() {
       </View>
       
       <View style={styles.aposta}>
-        <Text>Aqui será escolhido o valor da aposta</Text>
+        <Pressable style={styles.botaoValores} onPress={() => escolherDado(6)}>
+          <Text style={styles.text}>R${valorApostado[0]}</Text>
+        </Pressable>
+        <Pressable style={styles.botaoValores} onPress={() => escolherDado(6)}>
+          <Text style={styles.text}>R${valorApostado[1]}</Text>
+        </Pressable>
+        <Pressable style={styles.botaoValores} onPress={() => escolherDado(6)}>
+          <Text style={styles.text}>R${valorApostado[2]}</Text>
+        </Pressable>
+        <Pressable style={styles.botaoValores} onPress={() => escolherDado(6)}>
+          <Text style={styles.text}>R${valorApostado[3]}</Text>
+        </Pressable>
       </View>
       
       <View style={styles.areaBotoes}>
@@ -94,7 +105,7 @@ export default function App() {
           </Pressable>
         </View>
       </View>
-      <Pressable style={styles.botao} onPress={() => apostar}>
+      <Pressable style={styles.botaoApostar} onPress={apostar}>
         <Text style={styles.text}>Apostar</Text>
       </Pressable>
     </View>
@@ -124,16 +135,30 @@ const styles = StyleSheet.create({
     height: 150,
     marginLeft: 2,
     marginRight: 2
-
+  },
+  botaoValores: {
+    backgroundColor: 'lightgreen',
+    marginRight: 20,
+    marginLeft: 20,
+    justifyContent: 'space-around',
+    padding: 10
   },
   aposta: {
     marginTop: 10,
     marginBottom: 10,
     borderColor: 'black',
-    borderRadius: 1
+    borderRadius: 1,
+    flexDirection: 'row'
   },
   botaoApostar: { 
-    backgroundColor: 'blue'
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 20,
+    paddingHorizontal: 25,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: 'green',
+    marginTop: 10
   },
   botoesPrimeiraLinha: {
     flexDirection: 'row',
