@@ -1,46 +1,45 @@
-import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { Image, StyleSheet, Text, View, Pressable } from 'react-native';
 
 export default function App() {
+  
+  // Paths das imagens
   const dadosImage = [
-    './assets/four-leaf-clover-illustration-png.webp',
-    './assets/dieRed1.png',
-    './assets/dieRed2.png',
-    './assets/dieRed3.png',
-    './assets/dieRed4.png',
-    './assets/dieRed5.png',
-    './assets/dieRed6.png',
+    require('./assets/four-leaf-clover-illustration-png.webp'),
+    require('./assets/dieRed1.png'),
+    require('./assets/dieRed2.png'),
+    require('./assets/dieRed3.png'),
+    require('./assets/dieRed4.png'),
+    require('./assets/dieRed5.png'),
+    require('./assets/dieRed6.png'),
   ]
-  const [dadoApostaIndex, setDadoApostaIndex] = useState(0);
-  const [dadoSorteadoIndex, setDadoSorteadoIndex] = useState(0);
+  
+  // Path da imagem do dado que foi apostado ou que foi sorteado, a imagem inicial é de um trevo da sorte
   const [imgDadoAposta, setImgDadoAposta] = useState(dadosImage[0]);
-  const [imgDadoSorteado, setImgDadoSorteado] = useState(dadosImage[0].toString());
-
+  const [imgDadoSorteado, setImgDadoSorteado] = useState(dadosImage[0]);
+  
+  // Número do dado, o que foi apostado e o que foi sorteado
   const [dadoApostado, setDadoApostado] = useState(0);
-  const [dadoSorteado, setDadoSorteado] = useState(Math.floor(Math.random() * 6));
-
+  const [dadoSorteado, setDadoSorteado] = useState(0);
+  
+  // Dinheiro do saldo e valores que podem ser apostados pelo usuário
   const [saldo, setSaldo] = useState(100.00);
-  const [valorApostado, setValorApostado] = useState(
-    [
-      5.00, 10.00, 15.00, 20.00
-    ]);
+  const [valorApostado, setValorApostado] = useState([5.00, 10.00, 15.00, 20.00]);
 
-  // const caminhoImagem = require(imgDadoAposta);
-  // const caminhoImagem = require('./assets/four-leaf-clover-illustration-png.webp');
-  ;
-
+  // Função chamada quando o botão numérico é tocado
   const escolherDado = (numeroBotao) => {
     setDadoApostado(numeroBotao);
-    setDadoApostaIndex(numeroBotao);
     setImgDadoAposta(dadosImage[numeroBotao])
   }
 
   const apostar = () => {
-    setNumeroSorteado(Math.floor(Math.random() * 6));
-    setDadoSorteadoIndex(numeroSorteado);
+    setDadoSorteado(Math.floor(Math.random() * 6));
+    console.log(dadoSorteado);
+    setImgDadoSorteado(dadosImage[dadoSorteado]);
     if (dadoApostado == dadoSorteado) {
-      
+      console.log('Você acertou!');
+    } else {
+      console.log('Você errou!');
     }
   }
 
@@ -56,13 +55,13 @@ export default function App() {
         <View>
           <Image
             style={styles.imagem}
-            source={require(imgDadoAposta)}
+            source={imgDadoAposta}
           />
         </View>
         <View>
         <Image
           style={styles.imagem}
-          source={require('./assets/four-leaf-clover-illustration-png.webp')}
+          source={imgDadoSorteado}
         />
         </View>
       </View>
@@ -123,9 +122,6 @@ const styles = StyleSheet.create({
   imagem: {
     width: 150,
     height: 150,
-    borderColor: 'black',
-    borderWidth: 2,
-    borderRadius: 2,
     marginLeft: 2,
     marginRight: 2
 
